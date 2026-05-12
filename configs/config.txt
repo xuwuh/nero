@@ -1,0 +1,11 @@
+input_w: 28
+input_h: 28
+input_ch: 1
+classes: 10
+
+epochs: 5
+datch_size: 1
+momentum: 0.1
+
+train_data_path: data/train.csv
+test_data_path: data/test.csv
