@@ -2,6 +2,7 @@
 
 #include "../include/config.h"
 #include "../include/load_dataset.h"
+#include "../include/matrix.h"
 
 int main(){
     Config config;
@@ -19,6 +20,8 @@ int main(){
     conf_print(&config);
 
     dataset_free(&train_dataset);
+
+    matrix_test();
 
     return 0;
 }
