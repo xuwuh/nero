@@ -3,6 +3,7 @@
 #include "../include/config.h"
 #include "../include/load_dataset.h"
 #include "../include/matrix.h"
+#include "../include/utils.h"
 
 int main(){
     Config config;
@@ -22,6 +23,7 @@ int main(){
     dataset_free(&train_dataset);
 
     matrix_test();
+    utils_test();
 
     return 0;
 }
