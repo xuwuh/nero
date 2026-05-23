@@ -122,10 +122,11 @@ void dataset_print_labels(Dataset *dataset, int n){
     int limit=n;
     if (limit>dataset->image_count){limit=dataset->image_count;}
     printf ("labels %d:\n", limit);
-    for (int i=0; i<limit; i++){ printf("%d", dataset->lable[i]);}
+    for (int i=0; i<limit; i++){ printf("%d ", dataset->lable[i]);}
 }
 void dataset_print_pixels(Dataset *dataset, int n){
     int limit=n;
     if (limit>dataset->image_size){ limit=dataset->image_size;}
-    for (int i=0; i<limit; i++){ printf("%f", dataset->images[i]);}
+    printf ("pixels %d:\n", limit);
+    for (int i=0; i<limit; i++){ printf("%.3f", dataset->images[i]);}
 }
