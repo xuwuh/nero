@@ -4,6 +4,7 @@
 #include "../include/load_dataset.h"
 #include "../include/matrix.h"
 #include "../include/utils.h"
+#include "../include/loss.h"
 
 int main(){
     Config config;
@@ -24,6 +25,7 @@ int main(){
 
     matrix_test();
     utils_test();
+    loss_test();
 
     return 0;
 }

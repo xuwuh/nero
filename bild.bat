@@ -4,6 +4,7 @@ c\config.c ^
 c\load_dataset.c ^
 c\matrix.c ^
 c\utils.c ^
+c\loss.c ^
 -o nern.exe ^
 -lm
 
