@@ -5,12 +5,16 @@
 #include "../include/matrix.h"
 #include "../include/utils.h"
 #include "../include/loss.h"
+#include "../include/optimizer.h"
 
 int main(){
     Config config;
-    Dataset train_dataset={0};
+    Dataset train_dataset;
+    Optimizer optimizer;
 
     load("configs/config.txt", &config); //загружаем конфиг
+
+    optimizer=optimizer_create(config.learning_rate, config.momentum, config.regularizator);
 
     dataset_load(&train_dataset, config.train_data_path, &config, 100);
    
@@ -21,11 +25,12 @@ int main(){
     //тесты 
     conf_print(&config);
 
-    dataset_free(&train_dataset);
-
     matrix_test();
     utils_test();
     loss_test();
+    optimizer_test();
+
+    dataset_free(&train_dataset);
 
     return 0;
 }

@@ -25,6 +25,8 @@ int key_value(Config *config, char *key, char *value){
     else if (strcmp(key, "epochs")==0){config->epochs=atoi(value);}
     else if (strcmp(key, "datch_size")==0){config->datch_size=atoi(value);}
     else if (strcmp(key, "momentum")==0){config->momentum=atof(value);}
+    else if (strcmp(key, "learning_rate")==0){config->learning_rate=atof(value);}
+    else if (strcmp(key, "regularizator")==0){config->regularizator=atof(value);}
 
     else if (strcmp(key, "train_data_path")==0){
         strncpy(config->train_data_path, value, 256-1);
@@ -71,21 +73,24 @@ int validate(Config *config){
     else if (config->epochs<=0){printf("Warning: epochs\n");}
     else if (config->datch_size<=0){printf("Warning: datch_size\n");}
     else if (config->momentum<=0.0 || config->momentum>=1.0){printf("Warning: momentum\n");}
+    else if (config->learning_rate<=0.0){printf("Warning: learning_rate\n");}
+    else if (config->regularizator<0.0){printf("Warning: regularizator\n");}
     return 1;
 }
 
 //печатаем конфиг для проверки коректности чтения данных
 void conf_print(Config *config){
-    printf("CONFIG\n");
+    printf("\n\nCONFIG\n");
     printf("input_w: %d\n", config->input_w);
     printf("input_h: %d\n", config->input_h);
     printf("input_ch: %d\n", config->input_ch);
     printf("classes: %d\n", config->classes);
     printf("epochs: %d\n", config->epochs);
     printf("datch_size: %d\n", config->datch_size);
-    printf("momentum: %.6f\n", config->momentum);
+    printf("momentum: %.2f\n", config->momentum);
+    printf("learning_rate: %.2f\n", config->learning_rate);
+    printf("regularizator: %.4f\n", config->regularizator);
 
     printf("train_data_path: %s\n", config->train_data_path);
     printf("test_data_path: %s\n", config->test_data_path);
-    printf("\n");
 }

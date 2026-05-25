@@ -10,7 +10,10 @@ typedef struct
 
     int epochs;
     int datch_size;
+
     double momentum;
+    double learning_rate;
+    double regularizator;
 
     char train_data_path[256];
     char test_data_path[256];

@@ -5,6 +5,7 @@ c\load_dataset.c ^
 c\matrix.c ^
 c\utils.c ^
 c\loss.c ^
+c/optimizer.c ^
 -o nern.exe ^
 -lm
 
