@@ -6,6 +6,7 @@
 #include "../include/utils.h"
 #include "../include/loss.h"
 #include "../include/optimizer.h"
+#include "../include/linear_layer.h"
 
 int main(){
     Config config;
@@ -29,6 +30,7 @@ int main(){
     utils_test();
     loss_test();
     optimizer_test();
+    linear_test();
 
     dataset_free(&train_dataset);
 
