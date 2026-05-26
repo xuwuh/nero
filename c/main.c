@@ -8,6 +8,7 @@
 #include "../include/optimizer.h"
 #include "../include/linear_layer.h"
 #include "../include/tensor.h"
+#include "../include/relu.h"
 
 int main(){
     Config config;
@@ -36,6 +37,7 @@ int main(){
     optimizer_test();
     linear_test();
     tensor_tests();
+    relu_test();
 
     linear_free(&output_layer);
     dataset_free(&train_dataset);

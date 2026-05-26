@@ -8,6 +8,7 @@ c\loss.c ^
 c\optimizer.c ^
 c\linear_layer.c ^
 c\tensor.c ^
+c\relu.c ^
 -o nern.exe ^
 -lm
 
