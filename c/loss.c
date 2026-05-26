@@ -16,6 +16,8 @@ double row_max(Matrix *matrix, int row){
 
 //делаем нормальные вероятности классов
 int softmax(Matrix *logits, Matrix *probabilities){
+    if (logits==NULL || probabilities==NULL || logits->rows!=probabilities->rows || logits->cols!=probabilities->cols){return 0;}
+
     for (int i=0; i<logits->rows; i++){
         double max_val=row_max(logits, i); 
         double sum_exp=0.0;
@@ -37,6 +39,7 @@ int softmax(Matrix *logits, Matrix *probabilities){
 double cross_entripy(Matrix *probabilities, int *labels){
     double loss_sum=0.0;
     for (int i=0; i<probabilities->rows; i++){
+        if (labels[i]<0 || labels[i]>=probabilities->cols){return -1.0;}
         int true_class=labels[i];
         double probability=matrix_get(probabilities,i , true_class);
         loss_sum+= -log(probability+Epsilon);
@@ -46,6 +49,8 @@ double cross_entripy(Matrix *probabilities, int *labels){
 
 //смотрим как надо изменить выходы модели 
 int backward (Matrix *probabilities, int *labels, Matrix *dlogits){
+    if (probabilities==NULL || labels==NULL || dlogits==NULL || probabilities->rows!=dlogits->rows || probabilities->cols!=dlogits->cols){return 0;}
+    
     for (int i=0; i<probabilities->rows; i++){
         int true_class=labels[i];
         for (int j=0; j<probabilities->cols; j++){

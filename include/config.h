@@ -9,7 +9,7 @@ typedef struct
     int classes;
 
     int epochs;
-    int datch_size;
+    int batch_size;
 
     double momentum;
     double learning_rate;

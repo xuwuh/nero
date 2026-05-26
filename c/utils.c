@@ -42,7 +42,7 @@ int max_arg(double *values, int count){
     int best_i=0; 
     double best_val=values[0];
     for (int i=0; i<count; i++){
-        if (values[i]>best_i){
+        if (values[i]>best_val){
             best_i=i;
             best_val=values[i];
         }

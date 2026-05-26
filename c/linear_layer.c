@@ -43,6 +43,9 @@ int linear_forward(LinearLayer *layer, Matrix *input, Matrix *output){
 
 //обратный проход
 int linear_backward(LinearLayer *layer, Matrix *input, Matrix *doutput, Matrix *dinput){
+    if (doutput->rows!=input->rows || doutput->cols!=layer->output_size ||
+    dinput->rows!=input->rows || dinput->cols!=layer->input_size){return 0;}
+    
     Matrix input_t=matrix_create(input->cols, input->rows);
     matrix_transpose(input, &input_t);
     matrix_mult(&input_t, doutput, &layer->dweights);

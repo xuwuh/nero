@@ -3,12 +3,7 @@
 #include <string.h>
 
 #include "../include/load_dataset.h"
-
-//выделяем память
-void *safe_malloc(size_t size){
-    void *ptr=malloc(size);
-    return ptr;
-}
+#include "../include/utils.h"
 
 //нормализация пикселей
 double normal_score(double value, double min_value, double max_value){
@@ -27,6 +22,7 @@ int count_line_file(char *filenmae){
     FILE *file;
     int line=0, ch;
     file=fopen(filenmae, "r");
+    if (file==NULL){printf("ERROR: caccon open dataset file\n"); return -1;}
     while ((ch=fgetc(file))!=EOF){
         if (ch=='\n'){line++;}
     }
@@ -51,6 +47,7 @@ int dataset_load(Dataset *dataset, char *filename, Config *config, int max_image
     pixel=config->input_w * config->input_h * config->input_ch;
 
     total_line=count_line_file(filename);
+    if (total_line<=0){return 0;}
 
     capacity=total_line;
     if (max_images>0 && max_images<capacity){capacity=max_images;}
@@ -65,7 +62,7 @@ int dataset_load(Dataset *dataset, char *filename, Config *config, int max_image
     dataset->class_num=config->classes;
 
     file=fopen(filename, "r");
-    if (file==NULL){printf("ERROR: file=null"); dataset_free(dataset); }
+    if (file==NULL){printf("ERROR: file=null"); dataset_free(dataset); return 0; }
 
     image_index=0;
     while (fgets(line, sizeof(line), file)!=NULL){
@@ -76,19 +73,23 @@ int dataset_load(Dataset *dataset, char *filename, Config *config, int max_image
         if (max_images>0 && image_index>=max_images){break;}
         
         token=strtok(line, ",");
-
         if (token[0]<'0' || token[0]>'9'){continue;}
+
         label=atoi(token);
-        dataset->lable[image_index]=label;
+        if (label<0 || label>=config->classes){printf("ERROR: label"); fclose(file); dataset_free(dataset); return 0;}
+
         pixel_index=0;
 
         //читаем пиксели после lable
-        while ((token=strtok(NULL, ","))!=NULL && pixel_index<pixel){
+        while ((token=strtok(NULL, ","))!=NULL){
+            if (pixel_index>=pixel){printf("ERROR: pixel"); fclose(file); dataset_free(dataset); return 0;}
             int pixel_val=atoi(token); 
             double normaliz=normal(pixel_val);
             dataset->images[image_index*pixel+pixel_index]=normaliz;
             pixel_index++;
         }
+
+        dataset->lable[image_index]=label;
         image_index++;
     }
     fclose(file);

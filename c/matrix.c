@@ -21,7 +21,7 @@ Matrix matrix_create(int rows, int cols){
 //очищение памяти
 void matrix_free(Matrix *matrix){
     if (matrix==NULL){return;}
-    if (matrix->data!=NULL){free(matrix->data); matrix->data==NULL;}
+    if (matrix->data!=NULL){free(matrix->data); matrix->data=NULL;}
     matrix->rows=0;
     matrix->cols=0;
 }
@@ -72,6 +72,7 @@ int matrix_mult(Matrix *a, Matrix *b, Matrix *res){
 
 //транспонирование: res[i][j]=a[j][i]
 int matrix_transpose(Matrix *a, Matrix *res){
+    if (res->rows!=a->cols || res->cols!=a->rows){return 0;}
     for (int i=0; i<a->rows; i++){
         for (int j=0; j<a->cols; j++){
             matrix_set (res, j, i, matrix_get(a, i, j));
@@ -82,14 +83,17 @@ int matrix_transpose(Matrix *a, Matrix *res){
 
 //копирование
 int matrix_copy(Matrix *a, Matrix *b){
+    if (a==NULL || b==NULL || a->rows!=b->rows || a->cols!=b->cols){return 0;}
     int total=a->rows*a->cols;
     for (int i=0; i<total; i++){
         b->data[i]=a->data[i];
     }
+    return 1;
 } 
 
 //добавление биаса
 int matrix_dias(Matrix *matrix, Matrix *bias){
+    if (bias->rows!=1 || bias->cols!=matrix->cols){return 0;}
     for (int i=0; i<matrix->rows; i++){
         for (int j=0; j<matrix->cols; j++){
             double value;

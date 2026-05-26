@@ -4,7 +4,7 @@ input_ch: 1
 classes: 10
 
 epochs: 5
-datch_size: 1
+batch_size: 1
 
 momentum: 0.9
 learning_rate: 0.1
