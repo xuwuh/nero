@@ -7,6 +7,7 @@
 #include "../include/loss.h"
 #include "../include/optimizer.h"
 #include "../include/linear_layer.h"
+#include "../include/tensor.h"
 
 int main(){
     Config config;
@@ -34,6 +35,7 @@ int main(){
     loss_test();
     optimizer_test();
     linear_test();
+    tensor_tests();
 
     linear_free(&output_layer);
     dataset_free(&train_dataset);
