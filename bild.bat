@@ -10,6 +10,7 @@ c\linear_layer.c ^
 c\tensor.c ^
 c\relu.c ^
 c\maxpool.c ^
+c\im2col.c ^
 -o nern.exe ^
 -lm
 

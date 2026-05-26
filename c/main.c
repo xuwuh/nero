@@ -10,6 +10,7 @@
 #include "../include/tensor.h"
 #include "../include/relu.h"
 #include "../include/maxpool.h"
+#include "../include/im2col.h"
 
 int main(){
     Config config;
@@ -40,6 +41,8 @@ int main(){
     tensor_tests();
     relu_test();
     maxpool_tests();
+    im2col_test();
+    col2im_test();
 
     linear_free(&output_layer);
     dataset_free(&train_dataset);
