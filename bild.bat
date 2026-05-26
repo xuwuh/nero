@@ -9,6 +9,7 @@ c\optimizer.c ^
 c\linear_layer.c ^
 c\tensor.c ^
 c\relu.c ^
+c\maxpool.c ^
 -o nern.exe ^
 -lm
 

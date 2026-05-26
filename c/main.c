@@ -9,6 +9,7 @@
 #include "../include/linear_layer.h"
 #include "../include/tensor.h"
 #include "../include/relu.h"
+#include "../include/maxpool.h"
 
 int main(){
     Config config;
@@ -38,6 +39,7 @@ int main(){
     linear_test();
     tensor_tests();
     relu_test();
+    maxpool_tests();
 
     linear_free(&output_layer);
     dataset_free(&train_dataset);
