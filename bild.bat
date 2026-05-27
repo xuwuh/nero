@@ -14,6 +14,7 @@ c\im2col.c ^
 c\conv.c ^
 c\flatten.c ^
 c\model.c ^
+c\train_cnn.c ^
 -o nern.exe ^
 -lm
 

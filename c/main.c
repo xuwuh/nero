@@ -15,6 +15,7 @@
 #include "../include/flatten.h"
 
 #include "../include/model.h"
+#include "../include/train_cnn.h"
 
 int main(){
     Config config;
@@ -44,7 +45,12 @@ int main(){
 //    conv_tests();
 //   conv_backward_tests();
 //    flatten_test();
-    model_tests();
+//    model_tests();
+
+    //обучение
+    if (!train_cnn(&train_dataset, &config, config.momentum > 0.0)){
+        dataset_free(&train_dataset); 
+        return 1;}
 
     dataset_free(&train_dataset);
 

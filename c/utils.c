@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "../include/utils.h"
 
@@ -48,6 +49,11 @@ int max_arg(double *values, int count){
         }
     }
     return best_i;
+}
+
+//время
+double check_time(){
+    return (double)clock()/CLOCKS_PER_SEC;
 }
 
 //тесты 

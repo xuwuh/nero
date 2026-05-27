@@ -14,6 +14,8 @@ double random_double (double min_ranval, double max_ranval);
 double random_weight (double scale);
 // индекс максимального числа массива
 int max_arg(double *values, int count);
+//время
+double check_time();
 
 //тесты 
 void utils_test();
