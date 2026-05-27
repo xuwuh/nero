@@ -13,6 +13,7 @@ c\maxpool.c ^
 c\im2col.c ^
 c\conv.c ^
 c\flatten.c ^
+c\model.c ^
 -o nern.exe ^
 -lm
 

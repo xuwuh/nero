@@ -73,15 +73,15 @@ int linear_backward(LinearLayer *layer, Matrix *input, Matrix *doutput, Matrix *
 
 //обновление весов градиентом
 int linear_sgd(LinearLayer *layer, double learning_rate, double regularization){
-    optimizer_sgd_l2(&layer->weights, &layer->dweights, learning_rate, regularization);
-    optimizer_sgd_l2(&layer->bias, &layer->dbias, learning_rate, 0.0);
+    if(!optimizer_sgd_l2(&layer->weights, &layer->dweights, learning_rate, regularization)){return 0;}
+    if(!optimizer_sgd_l2(&layer->bias, &layer->dbias, learning_rate, 0.0)){return 0;}
     return 1;
 }
 
 //обновление весов градиент+моментум
 int linear_sgd_momentum(LinearLayer *layer, double learning_rate,double momentum, double regularization){
-    optimizer_sgd_momentum_l2(&layer->weights, &layer->dweights, &layer->velocity_weights, learning_rate, momentum, regularization);
-    optimizer_sgd_momentum_l2(&layer->bias, &layer->dbias, &layer->velocity_bias, learning_rate, momentum, 0.0);
+    if(!optimizer_sgd_momentum_l2(&layer->weights, &layer->dweights, &layer->velocity_weights, learning_rate, momentum, regularization)){return 0;}
+    if(!optimizer_sgd_momentum_l2(&layer->bias, &layer->dbias, &layer->velocity_bias, learning_rate, momentum, 0.0)){return 0;}
     return 1;
 }
 

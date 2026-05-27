@@ -90,13 +90,13 @@ int validate(Config *config){
     if (config==NULL){return 0;}
     if (config->input_w<=0 || config->input_h<=0){printf("Warning: input_w или input_h\n"); return 0;}
     else if (config->input_ch<=0){printf("Warning: input_ch\n"); return 0;}
-    else if (config->classes<=0){printf("Warning: classes\n"); return 0;}
+    else if (config->classes<=1){printf("Warning: classes\n"); return 0;}
 
     else if (config->conv_out_channels<=0){printf("Warning: conv_out_channels\n"); return 0;}
     else if (config->conv_kernel_h<=0){printf("Warning: conv_kernel_h\n"); return 0;}
     else if (config->conv_kernel_w<=0){printf("Warning: conv_kernel_w\n"); return 0;}
     else if (config->conv_stride<=0){printf("Warning: conv_stride\n"); return 0;}
-    else if (config->conv_padding<=0){printf("Warning: conv_padding\n"); return 0;}
+    else if (config->conv_padding<0){printf("Warning: conv_padding\n"); return 0;}
 
     else if (config->pool_size<=0){printf("Warning: pool_size\n"); return 0;}
     else if (config->pool_stride<=0){printf("Warning: pool_stride\n"); return 0;}
@@ -106,6 +106,14 @@ int validate(Config *config){
     else if (config->momentum<=0.0 || config->momentum>=1.0){printf("Warning: momentum\n"); return 0;}
     else if (config->learning_rate<=0.0){printf("Warning: learning_rate\n"); return 0;}
     else if (config->regularizator<0.0){printf("Warning: regularizator\n"); return 0;}
+
+    int conv_h=(config->input_h-config->conv_kernel_h+2*config->conv_padding)/config->conv_stride+1;
+    int conv_w=(config->input_w-config->conv_kernel_w+2*config->conv_padding)/config->conv_stride+1;
+    if (conv_h<=0 || conv_w<=0){printf("Warning: incorrect conv output size\n");return 0;}
+    int pool_h=(conv_h-config->pool_size)/config->pool_stride+1;
+    int pool_w=(conv_w-config->pool_size)/config->pool_stride+1;
+    if (pool_h<=0 || pool_w<=0){printf("Warning: incorrect pool output size\n"); return 0;}
+
     return 1;
 }
 

@@ -14,19 +14,15 @@
 #include "../include/conv.h"
 #include "../include/flatten.h"
 
+#include "../include/model.h"
+
 int main(){
     Config config;
     Dataset train_dataset={0};
-    Optimizer optimizer;
-    LinearLayer output_layer;
 
     if (!load("configs/config.txt", &config)){return 1;}; //загружаем конфиг
 
-    optimizer=optimizer_create(config.learning_rate, config.momentum, config.regularizator);
-    int input_size=config.input_w*config.input_h*config.input_ch;
-
     if(!dataset_load(&train_dataset, config.train_data_path, &config, 100)){return 1;}
-    if (!linear_init(&output_layer, input_size, config.classes)){dataset_free(&train_dataset);return 1;}
    
     dataset_print(&train_dataset);
     dataset_print_labels(&train_dataset, 10);
@@ -48,8 +44,8 @@ int main(){
 //    conv_tests();
 //   conv_backward_tests();
 //    flatten_test();
+    model_tests();
 
-    linear_free(&output_layer);
     dataset_free(&train_dataset);
 
     return 0;
