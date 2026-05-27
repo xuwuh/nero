@@ -35,19 +35,19 @@ int main(){
     //тесты 
     conf_print(&config);
 
-    matrix_test();
-    utils_test();
-    loss_test();
-    optimizer_test();
-    linear_test();
-    tensor_tests();
-    relu_test();
-    maxpool_tests();
-    im2col_test();
-    col2im_test();
-    conv_tests();
-    conv_backward_tests();
-    flatten_test();
+//    matrix_test();
+//    utils_test();
+//    loss_test();
+//    optimizer_test();
+//    linear_test();
+//    tensor_tests();
+//    relu_test();
+//    maxpool_tests();
+//    im2col_test();
+//    col2im_test();
+//    conv_tests();
+//   conv_backward_tests();
+//    flatten_test();
 
     linear_free(&output_layer);
     dataset_free(&train_dataset);

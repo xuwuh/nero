@@ -1,14 +1,27 @@
-input_w: 28
-input_h: 28
-input_ch: 1
-classes: 10
+#input data
+input_w: 28           #ширина изображения
+input_h: 28           #высота изображения
+input_ch: 1           #количесво каналов изображения
+classes: 10           #количесво классов изображений
 
-epochs: 5
-batch_size: 1
+#convolution layer
+conv_out_channels: 8   #число фильтров свертки
+conv_kernel_h: 3       #высота сверточного слоя
+conv_kernel_w: 3       #ширина сверточного слоя
+conv_stride: 1         #шаг перемещения сверточного ядра
+conv_padding: 1        #нулевая рамка вокруг изображения
 
-momentum: 0.9
-learning_rate: 0.1
-regularizator: 0.01
+# maxpool layer
+pool_size: 2           #размер окна 
+pool_stride: 2         #шаг
 
+# training
+epochs: 5              #количесво эпох обучения
+batch_size: 1          #сколько изобажений обрабатываеться за шаг
+momentum: 0.9          #коэфициэнт моментум
+learning_rate: 0.01    #размер шага при приближении весов 
+regularizator: 0.0001  #коэфициэнт l2-регуляции весов 
+
+# paths
 train_data_path: data/train.csv
 test_data_path: data/test.csv

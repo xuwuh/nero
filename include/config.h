@@ -8,9 +8,17 @@ typedef struct
     int input_ch;
     int classes;
 
+    int conv_out_channels;
+    int conv_kernel_h;
+    int conv_kernel_w;
+    int conv_stride;
+    int conv_padding;   
+
+    int pool_size;
+    int pool_stride;
+
     int epochs;
     int batch_size;
-
     double momentum;
     double learning_rate;
     double regularizator;
@@ -24,4 +32,3 @@ int validate(Config *config);
 void conf_print(Config *config);
 
 #endif
-
