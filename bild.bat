@@ -11,6 +11,7 @@ c\tensor.c ^
 c\relu.c ^
 c\maxpool.c ^
 c\im2col.c ^
+c\conv.c ^
 -o nern.exe ^
 -lm
 

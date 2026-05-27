@@ -11,6 +11,7 @@
 #include "../include/relu.h"
 #include "../include/maxpool.h"
 #include "../include/im2col.h"
+#include "../include/conv.h"
 
 int main(){
     Config config;
@@ -43,6 +44,8 @@ int main(){
     maxpool_tests();
     im2col_test();
     col2im_test();
+    conv_tests();
+    conv_backward_tests();
 
     linear_free(&output_layer);
     dataset_free(&train_dataset);
