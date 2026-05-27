@@ -11,7 +11,11 @@ int conv_output_size(int input_size, int kernel_size, int stride, int padding){
 int im2col(Tensor *input, Matrix *col, int kernel_h, int kernel_w, int stride, int padding){
     int out_h=conv_output_size(input->h, kernel_h, stride, padding);
     int out_w=conv_output_size(input->w, kernel_w, stride, padding);
+    int expected_rows=input->n*out_h*out_w;
+    int expected_cols=input->c*kernel_h*kernel_w;
+    if (col==NULL || col->rows!=expected_rows || col->cols!=expected_cols){return 0;}
     matrix_zero(col);
+
     for (int n=0; n<input->n; n++){
         for (int out_y=0; out_y<out_h; out_y++){
             for (int out_x=0; out_x<out_w; out_x++){
@@ -42,9 +46,11 @@ int im2col(Tensor *input, Matrix *col, int kernel_h, int kernel_w, int stride, i
 int col2im(Matrix *col, Tensor *output, int kernel_h, int kernel_w, int stride, int padding){
     int out_h=conv_output_size(output->h, kernel_h, stride, padding);
     int out_w=conv_output_size(output->w, kernel_w, stride, padding);
-    int expendet_row=output->n*out_h*out_w;
-    int expendet_col=output->c*kernel_h*kernel_w;
+    int expected_rows=output->n*out_h*out_w;
+    int expected_cols=output->c*kernel_h*kernel_w;
+    if (col==NULL || col->rows!=expected_rows || col->cols!=expected_cols){return 0;}
     tensor_zero(output);
+
     for (int n=0; n<output->n; n++){
         for (int out_y=0; out_y<out_h; out_y++){
             for (int out_x=0; out_x<out_w; out_x++){

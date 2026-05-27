@@ -19,6 +19,6 @@ int maxpool_backward(MaxPool *layer, Tensor *input, Tensor *doutput, Tensor *din
 int maxpool_output_size(int input_size, int pool_size, int stride);
 
 //т
-void maxpool_tests(void);
+void maxpool_tests();
 
 #endif

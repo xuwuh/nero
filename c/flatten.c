@@ -14,6 +14,9 @@ int flatten_init(Flatten *lauer, Tensor *input){
 
 //прямой проход
 int flatten_forward(Flatten *lauer, Tensor *input, Matrix *output){
+    if (lauer==NULL || input==NULL || output==NULL){return 0;}
+    if (output->rows!=input->n || output->cols!=lauer->output_features){return 0;}
+
     for (int n=0; n<input->n; n++){
         int feature_i=0;
         for (int c=0; c<input->c; c++){
@@ -31,6 +34,8 @@ int flatten_forward(Flatten *lauer, Tensor *input, Matrix *output){
 
 //обратный проход
 int flatten_backward(Flatten *lauer, Matrix *doutput, Tensor *dinput){
+    if (doutput->rows!=dinput->n || doutput->cols!=lauer->output_features || dinput->c!=lauer->input_c || dinput->h!=lauer->input_h || dinput->w!=lauer->input_w){return 0;}
+
     for (int n=0; n<dinput->n; n++){
         int feature_i=0;
         for (int c=0; c<dinput->c; c++){

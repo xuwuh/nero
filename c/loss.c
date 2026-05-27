@@ -53,9 +53,12 @@ int backward (Matrix *probabilities, int *labels, Matrix *dlogits){
     
     for (int i=0; i<probabilities->rows; i++){
         int true_class=labels[i];
+        if (true_class<0 || true_class>=probabilities->cols){return 0;}
+        
         for (int j=0; j<probabilities->cols; j++){
             double gradient=matrix_get (probabilities, i, j);
             if (j==true_class){gradient-=1.0;}
+            
             gradient/=probabilities->rows;
             matrix_set(dlogits,i, j, gradient);
         }

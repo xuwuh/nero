@@ -73,20 +73,27 @@ int dataset_load(Dataset *dataset, char *filename, Config *config, int max_image
         if (max_images>0 && image_index>=max_images){break;}
         
         token=strtok(line, ",");
+        if (token==NULL){continue;}
         if (token[0]<'0' || token[0]>'9'){continue;}
 
         label=atoi(token);
-        if (label<0 || label>=config->classes){printf("ERROR: label"); fclose(file); dataset_free(dataset); return 0;}
+        if (label<0 || label>=config->classes){
+            printf("ERROR: incorrect label\n"); fclose(file); dataset_free(dataset); return 0;}
 
         pixel_index=0;
 
         //читаем пиксели после lable
         while ((token=strtok(NULL, ","))!=NULL){
-            if (pixel_index>=pixel){printf("ERROR: pixel"); fclose(file); dataset_free(dataset); return 0;}
+            if (pixel_index>=pixel){
+                printf("ERROR: too many pixels\n"); fclose(file); dataset_free(dataset); return 0;}
+            
             int pixel_val=atoi(token); 
-            double normaliz=normal(pixel_val);
-            dataset->images[image_index*pixel+pixel_index]=normaliz;
+            dataset->images[image_index*pixel+pixel_index]=normal(pixel_val);
             pixel_index++;
+        }
+        if (pixel_index!=pixel){
+            printf("ERROR: image has %d pixels, expected %d\n", pixel_index, pixel);
+            fclose(file); dataset_free(dataset); return 0;
         }
 
         dataset->lable[image_index]=label;

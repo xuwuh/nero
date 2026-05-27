@@ -16,7 +16,7 @@
 
 int main(){
     Config config;
-    Dataset train_dataset;
+    Dataset train_dataset={0};
     Optimizer optimizer;
     LinearLayer output_layer;
 

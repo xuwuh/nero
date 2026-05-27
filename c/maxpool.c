@@ -16,6 +16,10 @@ int maxpool_output_size(int input_size, int pool_size, int stride){
 
 //прямой проход
 int maxpool_forward(MaxPool *layer, Tensor *input, Tensor *output){
+    int out_h=maxpool_output_size(input->h, layer->pool_size, layer->stride);
+    int out_w=maxpool_output_size(input->w, layer->pool_size, layer->stride);
+    if (output->n!=input->n || output->c!=input->c || output->h!=out_h || output->w!=out_w){return 0;}
+
     for (int n=0; n<input->n; n++){
         for (int c=0; c<input->c; c++){
             for (int h=0; h<output->h; h++){
@@ -47,6 +51,10 @@ int maxpool_forward(MaxPool *layer, Tensor *input, Tensor *output){
 
 //обратный проход
 int maxpool_backward(MaxPool *layer, Tensor *input, Tensor *doutput, Tensor *dinput){
+    int out_h=maxpool_output_size(dinput->h, layer->pool_size, layer->stride);
+    int out_w=maxpool_output_size(dinput->w, layer->pool_size, layer->stride);
+    if (doutput->n!=dinput->n || doutput->c!=dinput->c || doutput->h!=out_h || doutput->w!=out_w){return 0;}
+    
     tensor_zero(dinput);
     for (int n=0; n<input->n; n++){
         for (int c=0; c<input->c; c++){
@@ -143,6 +151,4 @@ void maxpool_tests(void){
     tensor_free(&output);
     tensor_free(&doutput);
     tensor_free(&dinput);
-
-    printf("\nMaxPool tests finished.\n");
 }

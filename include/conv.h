@@ -10,15 +10,15 @@ typedef struct
     int out_c; //чильтры в кофиге
     int kernel_h; //высота фильтра
     int kernel_w; //ширина фильстра
-    int sride; //шаг смещения филтра
+    int stride; //шаг смещения филтра
     int padding; //рамка вокруг изображения (нулевая)
 
     Matrix weights; //значения всех фильтров
     Matrix bias; //смещение всех фисьлтро
     Matrix dweights; //градиенты по филтрам
     Matrix dbias; //градиенты со смещением
-    Matrix velociry_weights; //помять моментум для фильтров
-    Matrix velociry_bias; //помаять моментум для смещения 
+    Matrix velocity_weights; //помять моментум для фильтров
+    Matrix velocity_bias; //помаять моментум для смещения 
 } Conv;
 
 //инициализация слоя

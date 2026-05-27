@@ -36,6 +36,9 @@ int linear_init(LinearLayer *layer, int input_size, int output_size){
 
 //прямой проход
 int linear_forward(LinearLayer *layer, Matrix *input, Matrix *output){
+    if (layer==NULL || input==NULL || output==NULL){return 0;}
+    if (input->cols!=layer->input_size || output->rows!=input->rows || output->cols!=layer->output_size){return 0;}
+    
     if(!matrix_mult(input, &layer->weights, output)){return 0;} //output = input * weights
     if(!matrix_dias(output, &layer->bias)){return 0;} //добавляем биас
     return 1;
