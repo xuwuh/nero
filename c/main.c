@@ -12,6 +12,7 @@
 #include "../include/maxpool.h"
 #include "../include/im2col.h"
 #include "../include/conv.h"
+#include "../include/flatten.h"
 
 int main(){
     Config config;
@@ -46,6 +47,7 @@ int main(){
     col2im_test();
     conv_tests();
     conv_backward_tests();
+    flatten_test();
 
     linear_free(&output_layer);
     dataset_free(&train_dataset);
