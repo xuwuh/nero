@@ -16,6 +16,7 @@
 
 #include "../include/model.h"
 #include "../include/train_cnn.h"
+#include "../include/log.h"
 
 int main(){
     Config config;
@@ -50,7 +51,12 @@ int main(){
 //    model_tests();
 
     //обучение
-    if (!train_cnn(&train_dataset, &test_dataset, &config, config.momentum>0.0)){
+    if (!train_cnn(&train_dataset, &test_dataset, &config, 0, "results/history_sgd.csv")){
+        dataset_free(&test_dataset);
+        dataset_free(&train_dataset); 
+        return 1;}
+
+    if (!train_cnn(&train_dataset, &test_dataset, &config, 1, "results/history_momentum.csv")){
         dataset_free(&test_dataset);
         dataset_free(&train_dataset); 
         return 1;}

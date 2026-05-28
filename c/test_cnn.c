@@ -106,8 +106,7 @@ TestCNN test_cnn(Model *model, Dataset *dataset, Config *config){
     }
 
     if (batch_count>0){
-        result.loss=loss_sum/batch_count;
-        result.accuracy=accuracy_sum/batch_count;
-    }
+        result.loss=loss_sum/batch_count; 
+        result.accuracy=accuracy_sum/batch_count;}
     return result;
 }

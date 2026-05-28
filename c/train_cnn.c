@@ -7,6 +7,7 @@
 #include "../include/loss.h"
 #include "../include/utils.h"
 #include "../include/test_cnn.h"
+#include "../include/log.h"
 
 //возвращаем индекс максимальной вероятности из матрицы: probabilities:batch_size*num_classes || row: номер объекта в batch
 int matrix_row_argmax(Matrix *matrix, int row){
@@ -48,12 +49,13 @@ int dataset_get_tensor_batch(Dataset *dataset, int start_index, int batch_size, 
 }
 
 //обучение 
-int train_cnn(Dataset *train_dataset, Dataset *test_dataset, Config *config, int use_momentum){
+int train_cnn(Dataset *train_dataset, Dataset *test_dataset, Config *config, int use_momentum, char *history_file){
     Model model;
 
     if (train_dataset==NULL || config==NULL){printf("Error: train_cnn got NULL argument\n");return 0;}
     if (train_dataset->image_count<=0){printf("Error: empty train dataset\n");return 0;}
     if (!model_init(&model, config)){printf("Error: failed to initialize CNN model\n");return 0;}
+    if (history_file!=NULL){log_init_history(history_file);}
 
     printf("TRAINING START\n");
     if (use_momentum){printf("SGD+Momentum\n");
@@ -67,6 +69,8 @@ int train_cnn(Dataset *train_dataset, Dataset *test_dataset, Config *config, int
         double epoch_loss_sum=0.0;
         double epoch_accuracy_sum=0.0;
         double epoch_start_time=check_time();
+        double test_loss=0.0;
+        double test_accuracy=0.0;
 
         //проходимся батчами по датасету
         for (int start=0; start<train_dataset->image_count; start+=config->batch_size){
@@ -140,7 +144,12 @@ int train_cnn(Dataset *train_dataset, Dataset *test_dataset, Config *config, int
             if (test_dataset!=NULL){
                 TestCNN test_result;
                 test_result=test_cnn(&model, test_dataset, config);
+                test_loss=test_result.loss;
+                test_accuracy=test_result.accuracy;
                 printf("test_loss: %.6f | test_accuracy: %.4f | test_items: %d\n", test_result.loss, test_result.accuracy, test_result.total_items);
+            }
+            if (history_file!=NULL){
+                log_log_epoch(history_file, epoch+1, avg_loss, avg_accuracy, test_loss, test_accuracy, epoch_time);
             }
         }
     }

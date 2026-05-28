@@ -16,8 +16,11 @@ c\flatten.c ^
 c\model.c ^
 c\train_cnn.c ^
 c\test_cnn.c ^
+c\log.c ^
 -o nern.exe ^
 -lm
+
+if not exist results mkdir results
 
 nern.exe
 pause
