@@ -13,5 +13,6 @@ typedef struct
 } TestCNN;
 
 TestCNN test_cnn(Model *model, Dataset *dataset, Config *config);
+TestCNN test_cnn_with_confusion(Model *model, Dataset *dataset, Config *config, int *confusion_matrix);
 
 #endif

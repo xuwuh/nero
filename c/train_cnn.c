@@ -50,7 +50,7 @@ int dataset_get_tensor_batch(Dataset *dataset, int start_index, int batch_size, 
 }
 
 //обучение 
-int train_cnn(Dataset *train_dataset, Dataset *test_dataset, Config *config, int use_momentum, char *history_file){
+int train_cnn(Dataset *train_dataset, Dataset *test_dataset, Config *config, int use_momentum, char *history_file, char *confusion_file){
     Model model;
 
     if (train_dataset==NULL || config==NULL){printf("Error: train_cnn got NULL argument\n");return 0;}
@@ -170,6 +170,15 @@ int train_cnn(Dataset *train_dataset, Dataset *test_dataset, Config *config, int
 
     double train_end_time=check_time();
     printf("total training time: %.3f sec\n",train_end_time-train_start_time);
+
+    if (test_dataset!=NULL && confusion_file!=NULL){
+        int *confusion_matrix=(int *)safe_calloc(config->classes*config->classes, sizeof(int));
+        test_cnn_with_confusion(&model, test_dataset, config, confusion_matrix);
+        if (!log_save_confusion_matrix(confusion_file, confusion_matrix, config->classes)){
+            printf("Error: failed to save confusion matrix\n");
+        }
+        free(confusion_matrix);
+    }
 
     model_free(&model);
     return 1;

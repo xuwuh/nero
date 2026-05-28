@@ -53,13 +53,13 @@ int main(){
 
     //обучение
     srand(42);
-    if (!train_cnn(&train_dataset, &test_dataset, &config, 0, "results/history_sgd.csv")){
+    if (!train_cnn(&train_dataset, &test_dataset, &config, 0, "results/history_sgd.csv", "results/confusion_sgd.csv")){
         dataset_free(&test_dataset);
         dataset_free(&train_dataset); 
         return 1;}
 
     srand(42);
-    if (!train_cnn(&train_dataset, &test_dataset, &config, 1, "results/history_momentum.csv")){
+    if (!train_cnn(&train_dataset, &test_dataset, &config, 1, "results/history_momentum.csv", "results/confusion_momentum.csv")){
         dataset_free(&test_dataset);
         dataset_free(&train_dataset); 
         return 1;}

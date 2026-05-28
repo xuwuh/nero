@@ -5,6 +5,6 @@
 #include "load_dataset.h"
 #include "model.h"
 
-int train_cnn(Dataset *train_dataset, Dataset *test_dataset, Config *config, int use_momentum, char *history_file);
+int train_cnn(Dataset *train_dataset, Dataset *test_dataset, Config *config, int use_momentum, char *history_file, char *confusion_file);
 
 #endif

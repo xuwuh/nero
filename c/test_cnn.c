@@ -8,12 +8,12 @@
 #include "../include/utils.h"
 
 //индекс максимума в строке
-static int test_row_argmax(Matrix *matrix, int row){
+int test_row_argmax(Matrix *matrix, int row){
     return max_arg(&matrix->data[row*matrix->cols],matrix->cols);
 }
 
 //точность батчей
-static double test_batch_accuracy(Matrix *probabilities, int *labels){
+double test_batch_accuracy(Matrix *probabilities, int *labels){
     int correct=0;
     for (int i=0; i<probabilities->rows; i++){
         int predicted_class=test_row_argmax(probabilities, i);
@@ -22,8 +22,20 @@ static double test_batch_accuracy(Matrix *probabilities, int *labels){
     return (double)correct/(double)probabilities->rows;
 }
 
+void test_fill_confusion(Matrix *probabilities, int *labels, int *confusion_matrix, int class_num){
+    if (confusion_matrix==NULL){return;}
+
+    for (int i=0; i<probabilities->rows; i++){
+        int true_class=labels[i];
+        int predicted_class=test_row_argmax(probabilities, i);
+        if (true_class>=0 && true_class<class_num && predicted_class>=0 && predicted_class<class_num){
+            confusion_matrix[true_class*class_num+predicted_class]++;
+        }
+    }
+}
+
 //копирование батчей
-static int test_get_tensor_batch(Dataset *dataset, int start_index, int batch_size, Tensor *batch_images, int *batch_labels){
+int test_get_tensor_batch(Dataset *dataset, int start_index, int batch_size, Tensor *batch_images, int *batch_labels){
     int actual_batch_size=batch_size;
     if (start_index+actual_batch_size>dataset->image_count){actual_batch_size=dataset->image_count-start_index;}
 
@@ -43,7 +55,7 @@ static int test_get_tensor_batch(Dataset *dataset, int start_index, int batch_si
     return actual_batch_size;
 }
 
-TestCNN test_cnn(Model *model, Dataset *dataset, Config *config){
+TestCNN test_cnn_with_confusion(Model *model, Dataset *dataset, Config *config, int *confusion_matrix){
     TestCNN result={0};
     double loss_sum=0.0;
     double accuracy_sum=0.0;
@@ -92,6 +104,7 @@ TestCNN test_cnn(Model *model, Dataset *dataset, Config *config){
 
         loss_sum+=cross_entripy(&probabilities, batch_labels);
         accuracy_sum+=test_batch_accuracy(&probabilities, batch_labels);
+        test_fill_confusion(&probabilities, batch_labels, confusion_matrix, config->classes);
         batch_count++;
         result.total_items+=actual_batch_size;
 
@@ -109,4 +122,8 @@ TestCNN test_cnn(Model *model, Dataset *dataset, Config *config){
         result.loss=loss_sum/batch_count; 
         result.accuracy=accuracy_sum/batch_count;}
     return result;
+}
+
+TestCNN test_cnn(Model *model, Dataset *dataset, Config *config){
+    return test_cnn_with_confusion(model, dataset, config, NULL);
 }
