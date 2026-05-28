@@ -6,6 +6,7 @@
 #include "../include/matrix.h"
 #include "../include/loss.h"
 #include "../include/utils.h"
+#include "../include/test_cnn.h"
 
 //возвращаем индекс максимальной вероятности из матрицы: probabilities:batch_size*num_classes || row: номер объекта в batch
 int matrix_row_argmax(Matrix *matrix, int row){
@@ -47,14 +48,14 @@ int dataset_get_tensor_batch(Dataset *dataset, int start_index, int batch_size, 
 }
 
 //обучение 
-int train_cnn(Dataset *train_dataset, Config *config, int use_momentum){
+int train_cnn(Dataset *train_dataset, Dataset *test_dataset, Config *config, int use_momentum){
     Model model;
 
     if (train_dataset==NULL || config==NULL){printf("Error: train_cnn got NULL argument\n");return 0;}
     if (train_dataset->image_count<=0){printf("Error: empty train dataset\n");return 0;}
     if (!model_init(&model, config)){printf("Error: failed to initialize CNN model\n");return 0;}
 
-    printf("=== CNN TRAINING START ===\n");
+    printf("TRAINING START\n");
     if (use_momentum){printf("SGD+Momentum\n");
     }
     else{printf("SGD\n");}
@@ -85,7 +86,7 @@ int train_cnn(Dataset *train_dataset, Config *config, int use_momentum){
             Tensor conv_out=tensor_create(actual_batch_size, config->conv_out_channels, model.conv_out_h, model.conv_out_w);
             Tensor relu_out=tensor_create(actual_batch_size, config->conv_out_channels, model.conv_out_h, model.conv_out_w);
             Tensor pool_out=tensor_create(actual_batch_size, config->conv_out_channels, model.pool_out_h, model.pool_out_w);
-            Matrix flat_out=matrix_create( actual_batch_size, model.flatten_size);
+            Matrix flat_out=matrix_create(actual_batch_size, model.flatten_size);
             Matrix logits=matrix_create(actual_batch_size, config->classes);
             Matrix probabilities=matrix_create(actual_batch_size, config->classes);
             Matrix dlogits=matrix_create(actual_batch_size, config->classes);
@@ -135,6 +136,12 @@ int train_cnn(Dataset *train_dataset, Config *config, int use_momentum){
             double avg_accuracy=epoch_accuracy_sum/batch_count;
             double epoch_time=epoch_end_time-epoch_start_time;
             printf("epoch %d/%d | loss: %.6f | accuracy: %.4f | time: %.3f sec\n", epoch+1, config->epochs, avg_loss, avg_accuracy, epoch_time);
+
+            if (test_dataset!=NULL){
+                TestCNN test_result;
+                test_result=test_cnn(&model, test_dataset, config);
+                printf("test_loss: %.6f | test_accuracy: %.4f | test_items: %d\n", test_result.loss, test_result.accuracy, test_result.total_items);
+            }
         }
     }
 

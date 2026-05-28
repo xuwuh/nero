@@ -20,10 +20,12 @@
 int main(){
     Config config;
     Dataset train_dataset={0};
+    Dataset test_dataset={0};
 
     if (!load("configs/config.txt", &config)){return 1;}; //загружаем конфиг
 
     if(!dataset_load(&train_dataset, config.train_data_path, &config, 100)){return 1;}
+    if(!dataset_load(&test_dataset, config.test_data_path, &config, 100)){dataset_free(&train_dataset); return 1;}
    
     dataset_print(&train_dataset);
     dataset_print_labels(&train_dataset, 10);
@@ -48,10 +50,12 @@ int main(){
 //    model_tests();
 
     //обучение
-    if (!train_cnn(&train_dataset, &config, config.momentum > 0.0)){
+    if (!train_cnn(&train_dataset, &test_dataset, &config, config.momentum>0.0)){
+        dataset_free(&test_dataset);
         dataset_free(&train_dataset); 
         return 1;}
 
+    dataset_free(&test_dataset);
     dataset_free(&train_dataset);
 
     return 0;

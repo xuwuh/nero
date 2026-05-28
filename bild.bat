@@ -15,6 +15,7 @@ c\conv.c ^
 c\flatten.c ^
 c\model.c ^
 c\train_cnn.c ^
+c\test_cnn.c ^
 -o nern.exe ^
 -lm
 
