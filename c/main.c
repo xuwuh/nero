@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../include/config.h"
 #include "../include/load_dataset.h"
@@ -51,11 +52,13 @@ int main(){
 //    model_tests();
 
     //обучение
+    srand(42);
     if (!train_cnn(&train_dataset, &test_dataset, &config, 0, "results/history_sgd.csv")){
         dataset_free(&test_dataset);
         dataset_free(&train_dataset); 
         return 1;}
 
+    srand(42);
     if (!train_cnn(&train_dataset, &test_dataset, &config, 1, "results/history_momentum.csv")){
         dataset_free(&test_dataset);
         dataset_free(&train_dataset); 

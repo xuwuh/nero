@@ -17,6 +17,7 @@ c\model.c ^
 c\train_cnn.c ^
 c\test_cnn.c ^
 c\log.c ^
+c\noise.c ^
 -o nern.exe ^
 -lm
 

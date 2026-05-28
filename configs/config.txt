@@ -16,11 +16,16 @@ pool_size: 2           #размер окна
 pool_stride: 2         #шаг
 
 # training
-epochs: 5              #количесво эпох обучения
+epochs: 10              #количесво эпох обучения
 batch_size: 1          #сколько изобажений обрабатываеться за шаг
 momentum: 0.9          #коэфициэнт моментум
 learning_rate: 0.01    #размер шага при приближении весов 
 regularizator: 0.0001  #коэфициэнт l2-регуляции весов 
+
+#noise
+use_noise: 1           #1 - включить шум, 0 - выключить
+noise_ratio: 0.10      #доля пикселей
+noise_value: 0.25      #сила шума
 
 # paths
 train_data_path: data/train.csv

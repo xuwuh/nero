@@ -44,6 +44,10 @@ int key_value(Config *config, char *key, char *value){
     else if (strcmp(key, "learning_rate")==0){config->learning_rate=atof(value);}
     else if (strcmp(key, "regularizator")==0){config->regularizator=atof(value);}
 
+    else if (strcmp(key, "use_noise")==0){config->use_noise=atoi(value);}
+    else if (strcmp(key, "noise_ratio")==0){config->noise_ratio=atof(value);}
+    else if (strcmp(key, "noise_value")==0){config->noise_value=atof(value);}
+
     else if (strcmp(key, "train_data_path")==0){
         strncpy(config->train_data_path, value, 256-1);
         config->train_data_path[256-1]='\0';}
@@ -107,6 +111,10 @@ int validate(Config *config){
     else if (config->learning_rate<=0.0){printf("Warning: learning_rate\n"); return 0;}
     else if (config->regularizator<0.0){printf("Warning: regularizator\n"); return 0;}
 
+    else if (config->use_noise!=0 && config->use_noise!=1){printf("Warning: use_noise\n");return 0;}
+    else if (config->noise_ratio<0.0 || config->noise_ratio>1.0){printf("Warning: noise_ratio\n");return 0;}
+    else if (config->noise_value<0.0){printf("Warning: noise_value\n");return 0;}
+
     int conv_h=(config->input_h-config->conv_kernel_h+2*config->conv_padding)/config->conv_stride+1;
     int conv_w=(config->input_w-config->conv_kernel_w+2*config->conv_padding)/config->conv_stride+1;
     if (conv_h<=0 || conv_w<=0){printf("Warning: incorrect conv output size\n");return 0;}
@@ -139,6 +147,10 @@ void conf_print(Config *config){
     printf("momentum: %.2f\n", config->momentum);
     printf("learning_rate: %.2f\n", config->learning_rate);
     printf("regularizator: %.4f\n", config->regularizator);
+
+    printf("use_noise: %d\n", config->use_noise);
+    printf("noise_ratio: %.2f\n", config->noise_ratio);
+    printf("noise_value: %.2f\n", config->noise_value);
 
     printf("train_data_path: %s\n", config->train_data_path);
     printf("test_data_path: %s\n", config->test_data_path);

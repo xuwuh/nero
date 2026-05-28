@@ -23,6 +23,10 @@ typedef struct
     double learning_rate;
     double regularizator;
 
+    int use_noise;
+    double noise_ratio; 
+    double noise_value;
+
     char train_data_path[256];
     char test_data_path[256];
 } Config;

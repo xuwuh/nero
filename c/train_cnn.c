@@ -8,6 +8,7 @@
 #include "../include/utils.h"
 #include "../include/test_cnn.h"
 #include "../include/log.h"
+#include "../include/noise.h"
 
 //возвращаем индекс максимальной вероятности из матрицы: probabilities:batch_size*num_classes || row: номер объекта в batch
 int matrix_row_argmax(Matrix *matrix, int row){
@@ -97,6 +98,19 @@ int train_cnn(Dataset *train_dataset, Dataset *test_dataset, Config *config, int
 
             //копируем батч из датасета в тензор
             dataset_get_tensor_batch(train_dataset, start, actual_batch_size, &batch_input, batch_labels);
+            if (config->use_noise && !tensor_add_noise(&batch_input, config->noise_ratio, config->noise_value)){
+                free(batch_labels);
+                tensor_free(&batch_input);
+                tensor_free(&conv_out);
+                tensor_free(&relu_out);
+                tensor_free(&pool_out);
+                matrix_free(&flat_out);
+                matrix_free(&logits);
+                matrix_free(&probabilities);
+                matrix_free(&dlogits);
+                model_free(&model);
+                return 0;
+            }
 
             //прямая проходка
             model_forward(&model, &batch_input, &conv_out, &relu_out, &pool_out, &flat_out, &logits, &probabilities);
