@@ -33,7 +33,5 @@ int conv_sgd(Conv *layer, double learning_rate, double regularization);
 int conv_momentum(Conv *layer, double learning_rate, double momentum, double regularization);
 
 void conv_free(Conv *layer);
-void conv_tests();
-void conv_backward_tests();
 
 #endif

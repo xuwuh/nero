@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="460" viewBox="0 0 900 460">
+<rect width="100%" height="100%" fill="white"/>
+<text x="450" y="32" text-anchor="middle" font-family="Arial" font-size="22" font-weight="bold">Momentum confusion matrix by class</text>
+<line x1="70" y1="390" x2="850" y2="390" stroke="#789"/>
+<rect x="80.00" y="296.25" width="46" height="93.75" fill="#4f9fd9"/>
+<rect x="80.00" y="202.50" width="46" height="93.75" fill="#f08a8a"/>
+<text x="103.00" y="420" text-anchor="middle" font-family="Arial" font-size="13">A</text>
+<rect x="156.00" y="240.00" width="46" height="150.00" fill="#4f9fd9"/>
+<rect x="156.00" y="90.00" width="46" height="150.00" fill="#f08a8a"/>
+<text x="179.00" y="420" text-anchor="middle" font-family="Arial" font-size="13">B</text>
+<rect x="232.00" y="296.25" width="46" height="93.75" fill="#4f9fd9"/>
+<rect x="232.00" y="221.25" width="46" height="75.00" fill="#f08a8a"/>
+<text x="255.00" y="420" text-anchor="middle" font-family="Arial" font-size="13">C</text>
+<rect x="308.00" y="315.00" width="46" height="75.00" fill="#4f9fd9"/>
+<rect x="308.00" y="202.50" width="46" height="112.50" fill="#f08a8a"/>
+<text x="331.00" y="420" text-anchor="middle" font-family="Arial" font-size="13">D</text>
+<rect x="384.00" y="352.50" width="46" height="37.50" fill="#4f9fd9"/>
+<rect x="384.00" y="221.25" width="46" height="131.25" fill="#f08a8a"/>
+<text x="407.00" y="420" text-anchor="middle" font-family="Arial" font-size="13">E</text>
+<rect x="460.00" y="352.50" width="46" height="37.50" fill="#4f9fd9"/>
+<rect x="460.00" y="240.00" width="46" height="112.50" fill="#f08a8a"/>
+<text x="483.00" y="420" text-anchor="middle" font-family="Arial" font-size="13">F</text>
+<rect x="536.00" y="277.50" width="46" height="112.50" fill="#4f9fd9"/>
+<rect x="536.00" y="202.50" width="46" height="75.00" fill="#f08a8a"/>
+<text x="559.00" y="420" text-anchor="middle" font-family="Arial" font-size="13">G</text>
+<rect x="612.00" y="183.75" width="46" height="206.25" fill="#4f9fd9"/>
+<rect x="612.00" y="127.50" width="46" height="56.25" fill="#f08a8a"/>
+<text x="635.00" y="420" text-anchor="middle" font-family="Arial" font-size="13">H</text>
+<rect x="688.00" y="352.50" width="46" height="37.50" fill="#4f9fd9"/>
+<rect x="688.00" y="240.00" width="46" height="112.50" fill="#f08a8a"/>
+<text x="711.00" y="420" text-anchor="middle" font-family="Arial" font-size="13">I</text>
+<rect x="764.00" y="296.25" width="46" height="93.75" fill="#4f9fd9"/>
+<rect x="764.00" y="277.50" width="46" height="18.75" fill="#f08a8a"/>
+<text x="787.00" y="420" text-anchor="middle" font-family="Arial" font-size="13">J</text>
+<text x="70" y="445" font-family="Arial" font-size="13" fill="#4f9fd9">correct</text>
+<text x="150" y="445" font-family="Arial" font-size="13" fill="#f08a8a">wrong</text>
+</svg>

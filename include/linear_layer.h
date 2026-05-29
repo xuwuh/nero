@@ -28,8 +28,7 @@ int linear_sgd(LinearLayer *layer, double learning_rate, double regularization);
 //обновление весов градиент+моментум
 int linear_sgd_momentum(LinearLayer *layer, double learning_rate,double momentum, double regularization);
 
-//очищение памяти и тест 
+//очищение памяти 
 void linear_free(LinearLayer *layer);
-void linear_test();
 
 #endif

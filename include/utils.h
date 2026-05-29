@@ -17,7 +17,4 @@ int max_arg(double *values, int count);
 //время
 double check_time();
 
-//тесты 
-void utils_test();
-
 #endif 

@@ -21,7 +21,4 @@ int optimizer_sgd_momentum(Matrix *weights, Matrix *gradient,Matrix *velocity, d
 //спуск со штрафом и моментум
 int optimizer_sgd_momentum_l2(Matrix *weights, Matrix *gradient,Matrix *velocity, double learning_rate, double momentum, double regularizator);
 
-//test
-void optimizer_test();
-
 #endif

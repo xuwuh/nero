@@ -105,7 +105,7 @@ int matrix_dias(Matrix *matrix, Matrix *bias){
     return 1;
 } 
 
-//вывод и тест 
+//вывод
 void matrix_print(Matrix *matrix, char *name){
     printf("%s [%d x %d]: \n", name, matrix->rows, matrix->cols);
     for (int i=0; i<matrix->rows; i++){
@@ -115,53 +115,4 @@ void matrix_print(Matrix *matrix, char *name){
         printf("\n");
     }
     printf("\n");
-}
-
-void matrix_test(){
-    Matrix a;
-    Matrix b;
-    Matrix c;
-    Matrix t;
-    Matrix bias;
-
-    printf("\n\n");
-
-    a = matrix_create(2, 3);
-    matrix_set(&a, 0, 0, 1.0);
-    matrix_set(&a, 0, 1, 2.0);
-    matrix_set(&a, 0, 2, 3.0);
-    matrix_set(&a, 1, 0, 4.0);
-    matrix_set(&a, 1, 1, 5.0);
-    matrix_set(&a, 1, 2, 6.0);
-
-    b = matrix_create(3, 2);
-    matrix_set(&b, 0, 0, 7.0);
-    matrix_set(&b, 0, 1, 8.0);
-    matrix_set(&b, 1, 0, 9.0);
-    matrix_set(&b, 1, 1, 10.0);
-    matrix_set(&b, 2, 0, 11.0);
-    matrix_set(&b, 2, 1, 12.0);
-
-    c = matrix_create(2, 2);
-    matrix_mult(&a, &b, &c);
-    matrix_print(&a, "A");
-    matrix_print(&b, "B");
-    matrix_print(&c, "C=A*B");
-
-    t = matrix_create(3, 2);
-    matrix_transpose(&a, &t);
-    matrix_print(&t, "A^T");
-
-    bias = matrix_create(1, 2);
-    matrix_set(&bias, 0, 0, 1.0);
-    matrix_set(&bias, 0, 1, 2.0);
-    matrix_dias(&c, &bias);
-    matrix_print(&bias, "bias");
-    matrix_print(&c, "C+bias");
-
-    matrix_free(&a);
-    matrix_free(&b);
-    matrix_free(&c);
-    matrix_free(&t);
-    matrix_free(&bias);
 }

@@ -19,8 +19,7 @@ int matrix_transpose(Matrix *a, Matrix *res); //транспонирование
 int matrix_copy(Matrix *a, Matrix *b); //копирование
 int matrix_dias(Matrix *matrix, Matrix *bias); //добавление биаса
 
-//вывод и тест 
+//вывод 
 void matrix_print(Matrix *matrix, char *name);
-void matrix_test();
 
 #endif

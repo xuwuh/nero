@@ -33,23 +33,7 @@ int main(){
     dataset_print_labels(&train_dataset, 10);
     dataset_print_pixels(&train_dataset, 10);
 
-    //тесты 
     conf_print(&config);
-
-//    matrix_test();
-//    utils_test();
-//    loss_test();
-//    optimizer_test();
-//    linear_test();
-//    tensor_tests();
-//    relu_test();
-//    maxpool_tests();
-//    im2col_test();
-//    col2im_test();
-//    conv_tests();
-//   conv_backward_tests();
-//    flatten_test();
-//    model_tests();
 
     //обучение
     srand(42);

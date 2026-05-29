@@ -12,7 +12,4 @@ int im2col(Tensor *input, Matrix *col, int kernel_h, int kernel_w, int stride, i
 int col2im(Matrix *col, Tensor *output, int kernel_h, int kernel_w, int stride, int padding);
 
 //тесты
-void im2col_test();
-void col2im_test();
-
 #endif

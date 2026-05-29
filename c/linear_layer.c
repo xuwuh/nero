@@ -85,7 +85,7 @@ int linear_sgd_momentum(LinearLayer *layer, double learning_rate,double momentum
     return 1;
 }
 
-//очищение памяти и тест 
+//очищение памяти 
 void linear_free(LinearLayer *layer){
     matrix_free(&layer->weights);
     matrix_free(&layer->bias);
@@ -95,54 +95,4 @@ void linear_free(LinearLayer *layer){
     matrix_free(&layer->velocity_bias);
     layer->input_size=0;
     layer->output_size=0;
-}
-
-void linear_test(){
-    LinearLayer layer;
-    Matrix input;
-    Matrix output;
-    Matrix doutput;
-    Matrix dinput;
-
-    printf("\nLINEAR LAYER TEST\n");
-    srand(1);
-
-    linear_init(&layer, 3, 2);
-    input=matrix_create(2, 3);
-
-    matrix_set(&input, 0, 0, 1.0);
-    matrix_set(&input, 0, 1, 2.0);
-    matrix_set(&input, 0, 2, 3.0);
-    matrix_set(&input, 1, 0, 4.0);
-    matrix_set(&input, 1, 1, 5.0);
-    matrix_set(&input, 1, 2, 6.0);
-
-    output=matrix_create(2, 2);
-    linear_forward(&layer, &input, &output);
-    matrix_print(&input, "linear input");
-    matrix_print(&layer.weights, "linear weights");
-    matrix_print(&layer.bias, "linear bias");
-    matrix_print(&output, "linear output");
-
-    doutput=matrix_create(2, 2);
-    matrix_set(&doutput, 0, 0, 0.1);
-    matrix_set(&doutput, 0, 1, -0.1);
-    matrix_set(&doutput, 1, 0, 0.2);
-    matrix_set(&doutput, 1, 1, -0.2);
-
-    dinput=matrix_create(2, 3);
-    linear_backward(&layer, &input, &doutput, &dinput);
-    matrix_print(&doutput, "doutput");
-    matrix_print(&layer.dweights, "dweights");
-    matrix_print(&layer.dbias, "dbias");
-    matrix_print(&dinput, "dinput");
-    linear_sgd(&layer, 0.01, 0.0001);
-    matrix_print(&layer.weights, "weights after SGD update");
-    matrix_print(&layer.bias, "bias after SGD update");
-
-    matrix_free(&input);
-    matrix_free(&output);
-    matrix_free(&doutput);
-    matrix_free(&dinput);
-    linear_free(&layer);
 }

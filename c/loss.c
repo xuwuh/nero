@@ -65,39 +65,3 @@ int backward (Matrix *probabilities, int *labels, Matrix *dlogits){
     }
     return 1;
 }
-
-void loss_test(){
-    Matrix logits;
-    Matrix probabilities;
-    Matrix dlogits;
-    int labels[2];
-    double loss;
-
-    printf("\nLOSS TEST\n");
-    logits=matrix_create(2, 3);
-    matrix_set(&logits, 0, 0, 2.0);
-    matrix_set(&logits, 0, 1, 1.0);
-    matrix_set(&logits, 0, 2, 0.1);
-
-    matrix_set(&logits, 1, 0, 0.5);
-    matrix_set(&logits, 1, 1, 2.5);
-    matrix_set(&logits, 1, 2, 0.3);
-
-    labels[0]=0;
-    labels[1]=1;
-    probabilities=matrix_create(2, 3);
-    dlogits=matrix_create(2, 3);
-
-    softmax(&logits, &probabilities);
-    loss=cross_entripy(&probabilities, labels);
-    backward(&probabilities, labels, &dlogits);
-
-    matrix_print(&logits, "logits");
-    matrix_print(&probabilities, "probabilities");
-    printf("cross entropy loss: %f\n", loss);
-    matrix_print(&dlogits, "dlogits");
-
-    matrix_free(&logits);
-    matrix_free(&probabilities);
-    matrix_free(&dlogits);
-}

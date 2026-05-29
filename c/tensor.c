@@ -76,32 +76,8 @@ int tensor_from_images(Tensor *tensor, const double *flat_images, int image_coun
     return 1;
 }
 
-//
+
 void tensor_print(const Tensor *tensor, const char *name){
     if (tensor==NULL){printf("%s: NULL tensor\n", name); return;}
     printf("%s: [%d x %d x %d x %d], size=%d\n", name, tensor->n, tensor->c, tensor->h, tensor->w, tensor->size);
-}
-
-void tensor_tests(){
-    Tensor tensor;
-    Tensor copy;
-
-    printf("\nTENSOR TEST\n");
-
-    tensor=tensor_create(2, 1, 2, 3);
-    tensor_print(&tensor, "test tensor");
-
-    tensor_set(&tensor, 0, 0, 0, 0, 1.0);
-    tensor_set(&tensor, 0, 0, 0, 1, 2.0);
-    tensor_set(&tensor, 1, 0, 1, 2, 9.0);
-    printf("tensor[0][0][0][0]=%.2f\n", tensor_get(&tensor, 0, 0, 0, 0));
-    printf("tensor[0][0][0][1]=%.2f\n", tensor_get(&tensor, 0, 0, 0, 1));
-    printf("tensor[1][0][1][2]=%.2f\n", tensor_get(&tensor, 1, 0, 1, 2));
-
-    copy=tensor_create(2, 1, 2, 3);
-    tensor_copy(&tensor, &copy);
-    printf("copy[1][0][1][2]=%.2f\n", tensor_get(&copy, 1, 0, 1, 2));
-    
-    tensor_free(&tensor);
-    tensor_free(&copy);
 }

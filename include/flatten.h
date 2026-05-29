@@ -20,6 +20,4 @@ int flatten_forward(Flatten *lauer, Tensor *input, Matrix *output);
 //обратный проход
 int flatten_backward(Flatten *lauer, Matrix *doutput, Tensor *dinput);
 
-int flatten_test();
-
 #endif

@@ -56,19 +56,3 @@ double check_time(){
     return (double)clock()/CLOCKS_PER_SEC;
 }
 
-//тесты 
-void utils_test(){
-    double val[4];
-    double start;
-    double end;
-    int max_i;
-
-    printf("\nTest utils\n");
-    val[0]=0.1;
-    val[1]=0.7;
-    val[2]=0.3;
-    val[3]=0.2;
-    printf("max_arg: %d\n", max_arg(val, 4));
-    printf("clamp: %f\n", clamp_double(1.5, 0.0, 1.0));
-    printf("random weght: %f\n", random_weight(0.1));
-}

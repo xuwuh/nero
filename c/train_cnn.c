@@ -9,6 +9,8 @@
 #include "../include/test_cnn.h"
 #include "../include/log.h"
 #include "../include/noise.h"
+#include "../visualizations/model_save.h"
+#include "../visualizations/graph_save.h"
 
 //возвращаем индекс максимальной вероятности из матрицы: probabilities:batch_size*num_classes || row: номер объекта в batch
 int matrix_row_argmax(Matrix *matrix, int row){
@@ -178,6 +180,20 @@ int train_cnn(Dataset *train_dataset, Dataset *test_dataset, Config *config, int
             printf("Error: failed to save confusion matrix\n");
         }
         free(confusion_matrix);
+    }
+
+    if (use_momentum){
+        if (!model_save(&model, config, "results/model_weights_momentum.json")){
+            printf("Error: failed to save momentum model weights\n");
+        }
+        if (!graph_save_all()){
+            printf("Warning: graphs were not created\n");
+        }
+    }
+    else{
+        if (!model_save(&model, config, "results/model_weights_sgd.json")){
+            printf("Error: failed to save sgd model weights\n");
+        }
     }
 
     model_free(&model);

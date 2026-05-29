@@ -28,8 +28,6 @@ int tensor_copy(const Tensor *src, Tensor *dst);
 //перевод батча из матриц в тензор 
 int tensor_from_images(Tensor *tensor, const double *flat_images, int image_count, int image_size);
 
-//печать и тесты
+//печать
 void tensor_print(const Tensor *tensor, const char *name);
-void tensor_tests();
-
 #endif 

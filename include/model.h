@@ -42,6 +42,5 @@ int model_sgd(Model *model, double learning_rate, double regularization);
 int model_momentum(Model *model, double learning_rate, double momentum, double regularization);
 
 void model_free(Model *model);
-void model_tests(void);
 
 #endif
