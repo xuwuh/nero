@@ -18,10 +18,7 @@ input image 28x28x1 -> convolution -> ReLU -> MaxPool -> Flatten -> Linear layer
 ## Как собрать и запустить
 
 Проект собирается через `Makefile`.
-
-Сборка: mingw32-make all
-Запуск обучения: mingw32-make run
-Очистка exe-файла: mingw32-make clean
+Запуск обучения: make run
 
 После запуска программа:
 1. читает конфиг из `configs/config.txt`;
