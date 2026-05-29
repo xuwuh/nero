@@ -19,6 +19,9 @@ input image 28x28x1 -> convolution -> ReLU -> MaxPool -> Flatten -> Linear layer
 
 Проект собирается через `Makefile`.
 Запуск обучения: make run
+При возниконвенни ошибок в создании визуализаций ввести: 
+`mkdir results
+mkdir visualizations\out`
 
 После запуска программа:
 1. читает конфиг из `configs/config.txt`;
